@@ -1,19 +1,21 @@
 const express = require('express');
+const routes = require('./routes');
+const sequelize = require('./config/connection');
 const mysql = require('mysql2');
 const cTable = require('console.table');
 require('dotenv').config();
 const inquirer =require("inquirer");
 
-const PORT = process.env.PORT || 3001;
 const app = express();
+const PORT = process.env.PORT || 3001;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// turn on routes
+app.use(routes);
 
-
-app.use((req, res) => {
-    res.status(404).end();
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// turn on connection to db and server
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log('Now listening'));
 });
