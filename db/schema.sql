@@ -9,22 +9,22 @@ DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS employee;
 
 CREATE TABLE department (
-  id INT NOT NULL Primary Key AUTO_INCREMENT,
+  id INT Primary Key AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
-  date_updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+  date_updated DATETIME DEFAULT CURRENT_TIMESTAMP 
   
 );
 CREATE TABLE role (
-  id INT NOT NULL Primary Key AUTO_INCREMENT,
+  id INT Primary Key AUTO_INCREMENT,
   title VARCHAR(30),
   salary DECIMAL,
   department INT,
   FOREIGN KEY (department) REFERENCES department(id) ON DELETE SET NULL,
-  date_updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+  date_updated DATETIME DEFAULT CURRENT_TIMESTAMP 
  );
 
 CREATE TABLE employee (
-  id INT NOT NULL Primary Key AUTO_INCREMENT,
+  id INT Primary Key AUTO_INCREMENT,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
   role INT,

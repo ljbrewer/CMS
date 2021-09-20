@@ -1,0 +1,17 @@
+  // con.query("SELECT * FROM employee", function (err, result, fields) {
+    //     if (err) throw err;
+    //     const employeeManager = [
+    //         {
+    //             type: "list",
+    //             name: "manager_id",
+    //             message: "Choose the Manager for this Employee",
+    //             choices: result.map(employee => {
+    //                 return {
+    //                     name: employee.first_name + " " + employee.last_name,
+    //                     value: employee.id
+    //                 }
+    //             })
+    //         }
+    //      ]
+    //     },
+    // ),
