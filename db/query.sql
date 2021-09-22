@@ -16,3 +16,11 @@ VALUES("CSS Developer", 6000.00,1);
 UPDATE employee
 set role = "8"
 where first_name = "Laura";
+
+SELECT first_name, last_name, employee.id, role.title as Position, role.salary as Salary, department.name as Department
+FROM employee
+INNER JOIN role 
+ON employee.role = role.id 
+INNER JOIN department 
+ON employee.department_id = department.id
+ORDER BY employee.department_id

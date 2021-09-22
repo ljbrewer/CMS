@@ -30,7 +30,8 @@ menu = [
             "Add a Department?",
             "Add a Role?",
             "Add an Employee?",
-            "Update an Employee Role",
+            "Update an Employee",
+            "Exit the Database"
         ]
     },
 ];
@@ -67,8 +68,12 @@ function allLists() {
                     addEmployee();
                     break;
 
-                case "Update an Employee Role":
+                case "Update an Employee":
                     updateEmployee();
+                    break;
+
+                case "Exit the Database":
+                    process.exit(0)
                     break;
             }
 
@@ -101,7 +106,7 @@ async function viewRole() {
 
 async function viewEmployee() {
     try {
-        const [employee] = await con.query("SELECT * FROM employee")
+        const [employee] = await con.query("SELECT first_name, last_name, employee.id, role.title as Position, role.salary as Salary, department.name as Department FROM employee INNER JOIN role ON employee.role = role.id INNER JOIN department ON employee.department_id = department.id ORDER BY employee.department_id")
         console.table(employee);
     } catch (err) {
         console.error(err);
@@ -168,7 +173,7 @@ async function addRole() {
         const [insertRole] = await con.query(`INSERT INTO role(title,salary,department) VALUES (?,?,?)`,
             [response.title, response.salary, response.department_id])
         console.table(insertRole);
-       
+
     } catch (err) {
         console.error(err);
     } finally {
@@ -275,10 +280,11 @@ async function updateEmployee() {
             },
 
         ]
-        
+
         const response = await inquirer.prompt(employeeUpdate)
         console.table(response)
-        const [insertEmpUpdate] = await con.query(`UPDATE employee SET employee.${response.update}=${response.value} WHERE ${response.employee_id} = ${employee.id}`)
+        const [insertEmpUpdate] = await con.query(`UPDATE employee SET ?? = ? WHERE id = ?`,
+            [response.update, response.value, response.employee_id])
         console.table(insertEmpUpdate);
 
     } catch (err) {

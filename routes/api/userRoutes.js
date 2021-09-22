@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('../../models/User');
+//const User = require('../../models/User');
 
 // This route uses async/await with '.catch()' for errors
 // and no HTTP status codes
