@@ -128,11 +128,9 @@ async function addDepartment() {
             }]
 
         const response = await inquirer.prompt(roleQuestion)
-        console.table(response)
         const [deptResult] = await con.query(`INSERT INTO department(name) VALUES (?)`,
             [response.name])
-        console.table(deptResult);
-        console.log(response);
+        //console.table(deptResult);
     } catch (err) {
         console.error(err);
     } finally {
@@ -172,7 +170,7 @@ async function addRole() {
         const response = await inquirer.prompt(roleQuestion)
         const [insertRole] = await con.query(`INSERT INTO role(title,salary,department) VALUES (?,?,?)`,
             [response.title, response.salary, response.department_id])
-        console.table(insertRole);
+        //console.table(insertRole);
 
     } catch (err) {
         console.error(err);
@@ -233,12 +231,10 @@ async function addEmployee() {
             }
         ]
         const response = await inquirer.prompt(employeeQuestion)
-        console.table(response);
-        const [insertResult] = await con.query(`INSERT INTO employee(first_name, last_name, role,manager_id, department_id) VALUES (?,?,?,?,?)`,
+            const [insertResult] = await con.query(`INSERT INTO employee(first_name, last_name, role,manager_id, department_id) VALUES (?,?,?,?,?)`,
             [response.first_name, response.last_name, response.role_id, response.manager_id, response.department_id])
-        console.table(insertResult);
-        console.log(response);
-    } catch (err) {
+        //console.table(insertResult);
+    }catch (err) {
         console.error(err);
     } finally {
         allLists()
@@ -276,16 +272,16 @@ async function updateEmployee() {
             {
                 type: "input",
                 name: "value",
-                message: "what value would you like entered?"
+                message: "Enter the value would you like entered? Role, Manager, or Department must be entered as their id"
             },
 
         ]
 
         const response = await inquirer.prompt(employeeUpdate)
-        console.table(response)
+       // console.table(response)
         const [insertEmpUpdate] = await con.query(`UPDATE employee SET ?? = ? WHERE id = ?`,
             [response.update, response.value, response.employee_id])
-        console.table(insertEmpUpdate);
+       // console.table(insertEmpUpdate);
 
     } catch (err) {
         console.error(err);
